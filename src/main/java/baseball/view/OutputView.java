@@ -11,7 +11,7 @@ public class OutputView {
     }
 
     public static void printCorrect() {
-        System.out.print(CORRECT_MESSAGE);
+        System.out.println(CORRECT_MESSAGE);
     }
 
     public static void printStrikeBall(int ballCount, int strikeCount) {
