@@ -1,8 +1,11 @@
 package baseball.controller;
 
+import baseball.db.DB;
+import baseball.db.Data;
 import baseball.domain.Player;
 import baseball.view.InputView;
 import baseball.view.OutputView;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import camp.nextstep.edu.missionutils.Randoms;
@@ -10,11 +13,12 @@ import java.util.stream.IntStream;
 
 
 public class BaseballController {
-
+    DB db = DB.getInstance();
     Player player = new Player("123");
     List<Integer> computer = new ArrayList<>();
     int ballCount = 0;
     int strikeCount = 0;
+    int tryCount = 0;
     boolean isCorrect = false;
 
     public void start() {
@@ -29,6 +33,7 @@ public class BaseballController {
             getInput();
             compareNumber();
             getOutput();
+            tryCount++;
             isCorrect = checkCorrect(strikeCount);
             resetCount();
         }
@@ -36,6 +41,9 @@ public class BaseballController {
 
     private void processCorrect() {
         OutputView.printCorrect();
+        db.addData(new Data(LocalDateTime.now(), tryCount));
+        db.showAllData();
+        tryCount = 0;
         int continous = InputView.getContinous();
         if (continous == 1) {
             isCorrect = false;
@@ -83,9 +91,9 @@ public class BaseballController {
 
     private void compareNumber() {
         List<Integer> player_ = player.splitNumber();
-        IntStream.range(0, 3).forEach(i -> {
-            getBallCount(i, computer, player_);
-            getStrikeCount(i, computer, player_);
+        IntStream.range(0, 3).forEach(digit -> {
+            getBallCount(digit, computer, player_);
+            getStrikeCount(digit, computer, player_);
         });
     }
 
