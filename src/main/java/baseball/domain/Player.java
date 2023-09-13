@@ -2,7 +2,11 @@ package baseball.domain;
 
 import java.util.*;
 
+import static baseball.constants.BaseBallConstant.*;
+
+
 public class Player {
+
     private int number;
 
     public Player(String number) {
@@ -12,7 +16,7 @@ public class Player {
 
     public List<Integer> splitNumber() {
         List<Integer> digits = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < NUMBER_LENGTH; i++) {
             int firstDigit = number % 10;
             digits.add(firstDigit);
             number /= 10;
@@ -21,7 +25,6 @@ public class Player {
         return digits;
     }
 
-
     private void validateNumber(String number) {
         isThreeDigits(number);
         containsSameNumber(number);
@@ -29,13 +32,15 @@ public class Player {
         isNumberic(number);
     }
 
-    private void containsZero(String number) {
-        if (number.contains("0")) {
+    private void isThreeDigits(String number) {
+//        if(number.matches(".{3}")) {
+        if (!(number.length() == NUMBER_LENGTH)) {
             throw new IllegalArgumentException();
         }
     }
 
     private void containsSameNumber(String number) {
+//      if(number.matches(".*(\\d).*\\1.*");
         Set<String> set = new HashSet<>();
         String[] digits = number.split("");
         for (String digit : digits) {
@@ -46,13 +51,15 @@ public class Player {
         }
     }
 
-    private void isThreeDigits(String number) {
-        if (!(number.length() == 3)) {
+    private void containsZero(String number) {
+//      if (number.matches(".*0.*") {
+        if (number.contains("0")) {
             throw new IllegalArgumentException();
         }
     }
 
     private void isNumberic(String number) {
+//        if (number.matches("\\d+"){
         try {
             Integer.parseInt(number);
         } catch (IllegalArgumentException e) {
