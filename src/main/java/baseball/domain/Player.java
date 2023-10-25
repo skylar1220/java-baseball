@@ -52,7 +52,6 @@ public class Player {
     }
 
     private void containsZero(String number) {
-//      if (number.matches(".*0.*") {
         if (number.contains("0")) {
             throw new IllegalArgumentException();
         }

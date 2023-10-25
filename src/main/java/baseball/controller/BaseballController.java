@@ -42,7 +42,7 @@ public class BaseballController {
     private void processCorrect() {
         OutputView.printCorrect();
         db.addData(new Data(LocalDateTime.now(), tryCount));
-        db.showAllData();
+//        db.showAllData();
         tryCount = 0;
         int continous = InputView.getContinous();
         if (continous == 1) {
